@@ -1,0 +1,49 @@
+import java.util.LinkedList;
+import java.util.List;
+class Tester {
+
+	public static void main(String arga[]){
+		Queue queue= new Queue(5);
+		
+		queue.enqueue("Emily");
+		queue.enqueue("Lily");
+		queue.enqueue("Rachel");
+		queue.enqueue("Rose");
+		
+		queue.dequeue();
+		queue.dequeue();
+	
+		System.out.println(queue.getQueue());
+	}
+}
+
+class Queue {
+    private int maxSize;
+    private List<String> queue;
+
+    public Queue(int maxSize) {
+        this.maxSize = maxSize;
+        this.queue = new LinkedList<>();
+    }
+
+    public void enqueue(String item) {
+        if (queue.size() < maxSize) {
+            queue.add(item);
+        } else {
+            System.out.println("Queue is full. Cannot enqueue " + item);
+        }
+    }
+
+    public String dequeue() {
+        if (!queue.isEmpty()) {
+            return queue.remove(0);
+        } else {
+            System.out.println("Queue is empty. Cannot dequeue.");
+            return null;
+        }
+    }
+
+    public List<String> getQueue() {
+        return queue;
+    }
+}
