@@ -1,0 +1,52 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Collections;
+import java.util.Comparator;
+
+class Tester {
+    
+    public static List<String> sortSales(Map<String, Integer> sales) {
+        // Convert map entries to a list for sorting
+        List<Entry<String, Integer>> entryList = new ArrayList<>(sales.entrySet());
+        
+        // Sort the list based on sales (descending), and if equal sales, by employee name (ascending)
+        Collections.sort(entryList, new Comparator<Entry<String, Integer>>() {
+            @Override
+            public int compare(Entry<String, Integer> e1, Entry<String, Integer> e2) {
+                int salesComparison = e2.getValue().compareTo(e1.getValue()); // Descending order by sales
+                if (salesComparison != 0) {
+                    return salesComparison;
+                }
+                // If sales are equal, sort by employee name (ascending)
+                return e1.getKey().compareTo(e2.getKey());
+            }
+        });
+        
+        // Extract sorted employee names into a list
+        List<String> sortedEmployees = new ArrayList<>();
+        for (Entry<String, Integer> entry : entryList) {
+            sortedEmployees.add(entry.getKey());
+        }
+        
+        return sortedEmployees;
+    }
+
+    public static void main(String args[]) {
+        Map<String, Integer> sales = new HashMap<>();
+        sales.put("Mathew", 50);
+        sales.put("Lisa", 76);
+        sales.put("Courtney", 45);
+        sales.put("David", 49);
+        sales.put("Paul", 49);
+        
+        List<String> employees = sortSales(sales);
+        
+        System.out.println("Employees in the decreasing order of their sales\n=====================================");
+        for (String employeeName : employees) {
+            System.out.println(employeeName);
+        }
+    }
+}
